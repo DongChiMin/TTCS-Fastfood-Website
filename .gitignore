@@ -1,0 +1,5 @@
+# Bỏ qua thư mục node_modules
+node_modules/
+
+# Bỏ qua file package-lock.json nếu không muốn theo dõi
+# package-lock.json
