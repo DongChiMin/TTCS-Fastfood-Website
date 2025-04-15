@@ -1,0 +1,171 @@
+@import "~font-awesome/css/font-awesome.min.css";
+
+@font-face {
+  font-family: "CaviarDreamsBold";
+  src: url("../fonts/CaviarDreams_Bold.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "JosefinSans";
+  src: url("../fonts/JosefinSans-Light.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Miniver";
+  src: url("../fonts/Miniver-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "OpenSansCondLight";
+  src: url("../fonts/OpenSans-CondLight.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HelloParis";
+  src: url("../fonts/Hello-Paris-Serif.woff") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+ul {
+  margin-bottom: 0px;
+}
+
+header,
+nav,
+section,
+article,
+aside,
+footer,
+hgroup {
+  display: block;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "CaviarDreamsBold", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.27em;
+  letter-spacing: 0.22em;
+  font-size: 65px;
+}
+
+html,
+body {
+  font-family: "JosefinSans", sans-serif;
+  font-weight: 400;
+  background-color: #fff;
+  font-size: 16px;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h6 {
+  font-family: "Miniver", sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  display: block;
+  margin-bottom: 13px;
+}
+
+p {
+  color: #2a2a2a;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 35px;
+  letter-spacing: 0;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  color: #2a2a2a;
+  background-color: transparent;
+  border: 1px solid #2a2a2a;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: auto;
+  margin: 0;
+  font-family: "OpenSansCondLight", sans-serif;
+  font-size: 14px;
+  line-height: 2em;
+  font-weight: 300;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  outline: 0;
+  padding: 9px 39px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+button:hover {
+  background-color: #2a2a2a;
+  color: white;
+  border-color: white;
+  transition: all 0.5s;
+}
+
+.section {
+  padding: 75px 250px;
+}
+
+/* Màn hình dưới 1200px */
+@media (max-width: 1200px) {
+  .section {
+    margin: 50px 100px 0;
+  }
+}
+
+/* Màn hình dưới 992px */
+@media (max-width: 992px) {
+  .section {
+    margin: 50px 50px 0;
+  }
+}
+
+/* Màn hình dưới 768px (mobile) */
+@media (max-width: 768px) {
+  .section {
+    margin: 30px 20px 0;
+  }
+}

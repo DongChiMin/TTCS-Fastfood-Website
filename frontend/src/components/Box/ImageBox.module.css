@@ -1,0 +1,14 @@
+.imageWrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Xén ảnh nếu nó lớn hơn thẻ cha */
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.image {
+  width: 100%; /* Giữ nguyên chiều rộng tự động */
+  height: 100%; /* Chiều cao bằng 100% của thẻ cha */
+  object-fit: cover; /* Đảm bảo ảnh phủ đầy mà không thay đổi tỷ lệ */
+}

@@ -1,0 +1,29 @@
+.sectionHeading h6 {
+  position: relative;
+  font-size: 25px;
+  color: #2a2a2a;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding-left: 40px;
+}
+
+.sectionHeading h6:before {
+  width: 30px;
+  height: 1px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  background-color: #2a2a2a;
+}
+
+.sectionHeading h2 {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  font-size: 65px;
+  font-weight: 700;
+  letter-spacing: 12px;
+  line-height: 85px;
+  color: #2a2a2a;
+}

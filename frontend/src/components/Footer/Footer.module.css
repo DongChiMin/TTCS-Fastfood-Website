@@ -1,0 +1,42 @@
+.footerLink {
+  color: #f8f9fa;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footerLink:hover {
+  color: #b8860b;
+}
+
+.socialIcon {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  display: inline-block;
+  margin: 0 8px;
+  transition: all 0.3s ease;
+}
+
+.socialIcon:hover {
+  transform: translateY(-3px);
+  color: #fff;
+}
+
+footer {
+  padding: 0px 150px;
+}
+footer h5 {
+  font-size: 35px;
+}
+footer p {
+  color: white;
+  font-size: 20px;
+}
+
+footer li,
+footer a {
+  font-size: 20px;
+}
