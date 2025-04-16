@@ -8,14 +8,14 @@ const QuantitySelector = ({ quantity, setQuantity }) => {
     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
       <button
         onClick={decrease}
-        style={{ fontSize: "25px", padding: "0px 10px", paddingLeft: "20px" }}
+        style={{ fontSize: "15px", padding: "0px 10px", paddingLeft: "15px" }}
       >
         -
       </button>
       <span
         style={{
-          fontSize: "35px",
-          width: "50px",
+          fontSize: "25px",
+          width: "35px",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -25,7 +25,7 @@ const QuantitySelector = ({ quantity, setQuantity }) => {
       </span>
       <button
         onClick={increase}
-        style={{ fontSize: "25px", padding: "0px 10px", paddingLeft: "20px" }}
+        style={{ fontSize: "15px", padding: "0px 10px", paddingLeft: "15px" }}
       >
         +
       </button>

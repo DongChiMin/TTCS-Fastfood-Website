@@ -85,14 +85,10 @@
 }
 
 .clickableItem h2 {
-  font-size: 40px;
-}
-
-.clickableItem h2 {
-  font-size: 40px;
+  font-size: 30px;
   margin-bottom: 15px;
 }
 
 .clickableItem p {
-  font-size: 25px;
+  font-size: 20px;
 }

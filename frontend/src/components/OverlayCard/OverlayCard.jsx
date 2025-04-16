@@ -4,7 +4,7 @@ function OverlayCard({
   title = "Title",
   description = ["description", "sub description"],
   imageSrc,
-  height = "400px",
+  height = "300px",
 }) {
   return (
     <div className={styles.clickableItem}>

@@ -78,8 +78,9 @@ h6 {
   font-weight: 700;
   text-transform: uppercase;
   line-height: 1.27em;
-  letter-spacing: 0.22em;
-  font-size: 65px;
+
+  font-size: 48px;
+  letter-spacing: 0.15em;
 }
 
 html,
@@ -87,7 +88,7 @@ body {
   font-family: "JosefinSans", sans-serif;
   font-weight: 400;
   background-color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -95,9 +96,10 @@ body {
 
 h6 {
   font-family: "Miniver", sans-serif;
-  font-size: 25px;
+  font-size: 20px;
+  line-height: 24px;
   font-weight: 400;
-  line-height: 28px;
+
   letter-spacing: 0.04em;
   text-transform: none;
   -webkit-font-smoothing: antialiased;
@@ -107,9 +109,9 @@ h6 {
 
 p {
   color: #2a2a2a;
-  font-size: 25px;
+  font-size: 18px;
   font-weight: 300;
-  line-height: 35px;
+  line-height: 28px;
   letter-spacing: 0;
   text-transform: none;
   -webkit-font-smoothing: antialiased;
@@ -127,13 +129,13 @@ button {
   width: auto;
   margin: 0;
   font-family: "OpenSansCondLight", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 2em;
   font-weight: 300;
   letter-spacing: 0.36em;
   text-transform: uppercase;
   outline: 0;
-  padding: 9px 39px;
+  padding: 7px 30px;
   cursor: pointer;
   transition: all 0.5s ease;
 }
@@ -145,27 +147,48 @@ button:hover {
   transition: all 0.5s;
 }
 
+/* Khi nút được chọn (có class "selected"), đổi màu nền và chữ */
+.btn-select.selected {
+  background-color: green; /* Màu xanh khi đã chọn */
+  color: white; /* Chữ trắng khi đã chọn */
+}
+
+/* Khi hover trên nút đã chọn, màu nền sẽ đậm hơn */
+.btn-select.selected:hover {
+  background-color: darkgreen; /* Nền xanh đậm khi hover */
+}
+
+.btn-select {
+  background-color: darkred; /* Nền xanh đậm khi hover */
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-select:hover {
+  color: white; /* Chữ trắng khi đã chọn */
+}
+
 .section {
-  padding: 75px 250px;
+  padding: 50px 150px;
 }
 
 /* Màn hình dưới 1200px */
 @media (max-width: 1200px) {
   .section {
-    margin: 50px 100px 0;
+    margin: 40px 80px 0;
   }
 }
 
 /* Màn hình dưới 992px */
 @media (max-width: 992px) {
   .section {
-    margin: 50px 50px 0;
+    margin: 40px 40px 0;
   }
 }
 
 /* Màn hình dưới 768px (mobile) */
 @media (max-width: 768px) {
   .section {
-    margin: 30px 20px 0;
+    margin: 25px 15px 0;
   }
 }

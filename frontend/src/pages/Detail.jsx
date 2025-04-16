@@ -68,23 +68,23 @@ function Detail() {
         h2Title={""}
         title={""}
         subTitle={""}
-        height="10vh"
+        height="8vh"
       />
       <div className="section">
         <div className="row">
           <div className="col-5">
             <ImageBox
-              height="800px"
+              height="600px"
               src={`http://localhost:3001/uploads/${menu.imageUrl}`}
               alt="menu"
             />
           </div>
           <div className="col-7">
-            <TitleWithSubtitle title={menu.title} subTitle={menu.category} />
-            <h5 style={{ fontSize: "35px" }}>$ {menu.price}</h5>
+            <TitleWithSubtitle title={menu.name} subTitle={menu.category} />
+            <h5 style={{ fontSize: "25px" }}>$ {menu.price}</h5>
             <p style={{ margin: "35px 0px" }}>{menu.description}</p>
             {/* button quantity, add to cart, buy now */}
-            <div style={{ display: "flex", gap: "40px", margin: "40px 0px" }}>
+            <div style={{ display: "flex", gap: "30px", margin: "40px 0px" }}>
               <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
               <ButtonWhite
                 buttontext={"Add to cart"}
@@ -109,7 +109,7 @@ function Detail() {
                       label="Ingredient"
                       value="1"
                       style={{
-                        fontSize: "20px",
+                        fontSize: "15px",
                         fontFamily: "JosefinSans",
                         fontWeight: "bold",
                       }}
@@ -118,7 +118,7 @@ function Detail() {
                       label="Information"
                       value="2"
                       style={{
-                        fontSize: "20px",
+                        fontSize: "15px",
                         fontFamily: "JosefinSans",
                         fontWeight: "bold",
                       }}
@@ -127,7 +127,7 @@ function Detail() {
                       label="Rates"
                       value="3"
                       style={{
-                        fontSize: "20px",
+                        fontSize: "15px",
                         fontFamily: "JosefinSans",
                         fontWeight: "bold",
                       }}
@@ -136,7 +136,7 @@ function Detail() {
                 </Box>
                 <TabPanel
                   value="1"
-                  style={{ fontSize: "25px", fontFamily: "JosefinSans" }}
+                  style={{ fontSize: "18px", fontFamily: "JosefinSans" }}
                 >
                   <strong>Ingredients: </strong>
                   {menu.ingredients
@@ -145,11 +145,11 @@ function Detail() {
                 </TabPanel>
                 <TabPanel
                   value="2"
-                  style={{ fontSize: "25px", fontFamily: "JosefinSans" }}
+                  style={{ fontSize: "18px", fontFamily: "JosefinSans" }}
                 >
-                  <p>SKU: {menu.sku}</p>
-                  <p>Category: {menu.category}</p>
-                  <p>
+                  <p style={{ fontSize: "18px" }}>SKU: {menu.sku}</p>
+                  <p style={{ fontSize: "18px" }}>Category: {menu.category}</p>
+                  <p style={{ fontSize: "18px" }}>
                     Tags:{" "}
                     {menu.tags
                       ? menu.tags.join(", ") + "."
@@ -158,7 +158,7 @@ function Detail() {
                 </TabPanel>
                 <TabPanel
                   value="3"
-                  style={{ fontSize: "25px", fontFamily: "JosefinSans" }}
+                  style={{ fontSize: "18px", fontFamily: "JosefinSans" }}
                 >
                   {menu.rates}
                 </TabPanel>
@@ -182,9 +182,9 @@ function Detail() {
                 }}
               >
                 <OverlayCard
-                  title={relatedMenu.title}
+                  title={relatedMenu.name}
                   description={["$ " + relatedMenu.price]}
-                  height="450px"
+                  height="350px"
                   imageSrc={`http://localhost:3001/uploads/${relatedMenu.imageUrl}`}
                 />
               </Link>
@@ -217,7 +217,7 @@ const sendProductToCart = (menu, quantity, isNotify = true) => {
     // Nếu không có sản phẩm, thêm mới vào giỏ hàng
     cart.items.push({
       _id: menu._id,
-      title: menu.title,
+      name: menu.name,
       quantity: quantity,
       price: menu.price,
       imageUrl: menu.imageUrl,
@@ -232,6 +232,6 @@ const sendProductToCart = (menu, quantity, isNotify = true) => {
 
   if (isNotify) {
     // Thông báo cho người dùng
-    alert(`${menu.title} (${quantity}) đã được thêm vào giỏ hàng!`);
+    alert(`${menu.name} (${quantity}) đã được thêm vào giỏ hàng!`);
   }
 };
