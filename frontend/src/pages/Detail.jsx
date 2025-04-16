@@ -73,11 +73,11 @@ function Detail() {
       <div className="section">
         <div className="row">
           <div className="col-5">
-            <ImageBox
-              height="600px"
-              src={`http://localhost:3001/uploads/${menu.imageUrl}`}
-              alt="menu"
-            />
+          <ImageBox
+            height="600px"
+            src={`http://localhost:3001${menu.imageUrl.startsWith("/uploads") ? menu.imageUrl : "/uploads/" + menu.imageUrl}`}
+            alt="menu"
+          />
           </div>
           <div className="col-7">
             <TitleWithSubtitle title={menu.name} subTitle={menu.category} />
@@ -185,7 +185,7 @@ function Detail() {
                   title={relatedMenu.name}
                   description={["$ " + relatedMenu.price]}
                   height="350px"
-                  imageSrc={`http://localhost:3001/uploads/${relatedMenu.imageUrl}`}
+                  imageSrc={`http://localhost:3001${relatedMenu.imageUrl.startsWith("/uploads") ? relatedMenu.imageUrl : "/uploads/" + relatedMenu.imageUrl}`}
                 />
               </Link>
             </div>

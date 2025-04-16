@@ -5,30 +5,28 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
-
 import OverlayCard from "../components/OverlayCard/OverlayCard";
 import PageHeader from "../components/PageHeader/PageHeader";
-
-import img1 from "../assets/images/menus/menu-slider-1.jpg"; // Hình ảnh mặc định cho OverlayCard
+import img1 from "../assets/images/menus/menu-slider-1.jpg"; // Default image for the header
 
 function Menus() {
   const [menus, setMenus] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Gửi yêu cầu GET đến API backend để lấy danh sách menus
+    // Fetch menus from the backend
     axios
       .get("http://localhost:3001/api/menus")
       .then((response) => {
-        setMenus(response.data); // Lưu dữ liệu nhận được vào state
-        console.log(response.data); // In ra dữ liệu để kiểm tra
+        setMenus(response.data); // Save menus in state
+        console.log(response.data); // Log to verify the data
       })
       .catch((error) => {
         console.error("There was an error fetching the menus!", error);
       });
   }, []);
 
-  // MUI
+  // MUI Tabs state
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -62,26 +60,10 @@ function Menus() {
               onChange={handleChange}
               aria-label="basic tabs example"
             >
-              <Tab
-                label="Appertizer"
-                {...a11yProps(0)}
-                style={{ fontSize: "16px" }}
-              />
-              <Tab
-                label="Main Courses"
-                {...a11yProps(1)}
-                style={{ fontSize: "16px" }}
-              />
-              <Tab
-                label="Dessert"
-                {...a11yProps(2)}
-                style={{ fontSize: "16px" }}
-              />
-              <Tab
-                label="Drinks"
-                {...a11yProps(3)}
-                style={{ fontSize: "16px" }}
-              />
+              <Tab label="Appertizer" {...a11yProps(0)} style={{ fontSize: "16px" }} />
+              <Tab label="Main Courses" {...a11yProps(1)} style={{ fontSize: "16px" }} />
+              <Tab label="Dessert" {...a11yProps(2)} style={{ fontSize: "16px" }} />
+              <Tab label="Drinks" {...a11yProps(3)} style={{ fontSize: "16px" }} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>
@@ -95,7 +77,8 @@ function Menus() {
                         title={item.name}
                         description={["$ " + item.price]}
                         height="350px"
-                        imageSrc={`http://localhost:3001/uploads/${item.imageUrl}`} // dùng imageUrl
+                        imageSrc={`http://localhost:3001${item.imageUrl.startsWith("/uploads") ? item.imageUrl : "/uploads/" + item.imageUrl}`}
+
                       />
                     </Link>
                   </div>
@@ -113,7 +96,8 @@ function Menus() {
                         title={item.name}
                         description={[item.description]}
                         height="450px"
-                        imageSrc={`http://localhost:3001/uploads/${item.imageUrl}`} // dùng imageUrl
+                        imageSrc={`http://localhost:3001${item.imageUrl.startsWith("/uploads") ? item.imageUrl : "/uploads/" + item.imageUrl}`}
+
                       />
                     </Link>
                   </div>
@@ -131,7 +115,7 @@ function Menus() {
                         title={item.name}
                         description={[item.description]}
                         height="450px"
-                        imageSrc={`http://localhost:3001/uploads/${item.imageUrl}`} // dùng imageUrl
+                        imageSrc={`http://localhost:3001${item.imageUrl.startsWith("/uploads") ? item.imageUrl : "/uploads/" + item.imageUrl}`}
                       />
                     </Link>
                   </div>
@@ -149,7 +133,8 @@ function Menus() {
                         title={item.name}
                         description={[item.description]}
                         height="450px"
-                        imageSrc={`http://localhost:3001/uploads/${item.imageUrl}`} // dùng imageUrl
+                        imageSrc={`http://localhost:3001${item.imageUrl.startsWith("/uploads") ? item.imageUrl : "/uploads/" + item.imageUrl}`}
+
                       />
                     </Link>
                   </div>

@@ -62,13 +62,44 @@ function AdminMenus() {
   const handleNewMenuChange = (e) => {
     setNewMenu({ ...newMenu, [e.target.name]: e.target.value });
   };
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+  
+    const formData = new FormData();
+    formData.append("image", file);
+  
+    try {
+      const response = await axios.post("http://localhost:3001/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      // Cập nhật đường dẫn ảnh mới vào newMenu
+      setNewMenu((prev) => ({
+        ...prev,
+        imageUrl: response.data.imageUrl, // imageUrl sẽ chứa đường dẫn tới ảnh đã upload
+      }));
+  
+      // Hiển thị ảnh đã upload ngay lập tức
+      alert("Image uploaded successfully!");
+    } catch (err) {
+      console.error("Error uploading image:", err.response?.data || err);
+      alert("Error uploading image.");
+    }
+  };
+  
 
   const handleCreate = async () => {
     try {
+      console.log("Creating menu with data:", newMenu); // 👈 Thêm dòng này
+  
       await axios.post("http://localhost:3001/api/menus", {
         ...newMenu,
-        price: parseFloat(newMenu.price), // ✅ ép sang number
+        price: parseFloat(newMenu.price),
       });
+  
       alert("Menu created successfully");
       setNewMenu({
         name: "",
@@ -77,12 +108,13 @@ function AdminMenus() {
         category: "",
         price: "",
       });
+      console.log("🧾 Data being sent:", newMenu);
       fetchMenus();
     } catch (err) {
-      console.error("Error creating menu:", err);
+      console.error("Error creating menu:", err.response?.data || err);
     }
   };
-
+  
   return (
     <div className="container mt-5">
       <h2>Admin: Manage Menus</h2>
@@ -111,15 +143,21 @@ function AdminMenus() {
             ></textarea>
           </div>
           <div className="mb-3">
-            <label>Image URL</label>
+            <label>Image</label>
             <input
-              type="text"
-              name="imageUrl"
-              value={newMenu.imageUrl}
-              onChange={handleNewMenuChange}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
               className="form-control"
             />
-          </div>
+          {newMenu.imageUrl && (
+            <img
+            src={`http://localhost:3001${newMenu.imageUrl}`}
+            alt="Preview"
+            style={{ width: "100px", marginTop: "10px", border: "1px solid #ccc" }}
+          />
+          )}
+        </div>
           <div className="mb-3">
             <label>Category</label>
             <input
