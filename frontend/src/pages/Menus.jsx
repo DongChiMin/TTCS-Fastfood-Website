@@ -15,6 +15,7 @@ function Menus() {
   const [menus, setMenus] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     // Gửi yêu cầu GET đến API backend để lấy danh sách menus
     axios
       .get("http://localhost:3001/api/menus")
@@ -47,7 +48,9 @@ function Menus() {
       <div className="section">
         <div className="text-center mb-5">
           <h6>Our Offered Menu</h6>
-          <h2>Some Trendy And Popular Courses Offered</h2>
+          <h2 style={{ fontSize: "45px", padding: "0px 65px" }}>
+            Trendy And Popular Courses Offered
+          </h2>
         </div>
         <Box sx={{ width: "100%" }}>
           <Box
@@ -62,22 +65,22 @@ function Menus() {
               <Tab
                 label="Appertizer"
                 {...a11yProps(0)}
-                style={{ fontSize: "20px" }}
+                style={{ fontSize: "16px" }}
               />
               <Tab
                 label="Main Courses"
                 {...a11yProps(1)}
-                style={{ fontSize: "20px" }}
+                style={{ fontSize: "16px" }}
               />
               <Tab
                 label="Dessert"
                 {...a11yProps(2)}
-                style={{ fontSize: "20px" }}
+                style={{ fontSize: "16px" }}
               />
               <Tab
                 label="Drinks"
                 {...a11yProps(3)}
-                style={{ fontSize: "20px" }}
+                style={{ fontSize: "16px" }}
               />
             </Tabs>
           </Box>
@@ -89,9 +92,9 @@ function Menus() {
                   <div className="col-3 mb-4" key={index}>
                     <Link to={`/detail/${item._id}`}>
                       <OverlayCard
-                        title={item.title}
+                        title={item.name}
                         description={["$ " + item.price]}
-                        height="450px"
+                        height="350px"
                         imageSrc={`http://localhost:3001/uploads/${item.imageUrl}`} // dùng imageUrl
                       />
                     </Link>
@@ -107,7 +110,7 @@ function Menus() {
                   <div className="col-3 mb-4" key={index}>
                     <Link to={`/detail/${item._id}`}>
                       <OverlayCard
-                        title={item.title}
+                        title={item.name}
                         description={[item.description]}
                         height="450px"
                         imageSrc={`http://localhost:3001/uploads/${item.imageUrl}`} // dùng imageUrl
@@ -125,7 +128,7 @@ function Menus() {
                   <div className="col-3 mb-4" key={index}>
                     <Link to={`/detail/${item._id}`}>
                       <OverlayCard
-                        title={item.title}
+                        title={item.name}
                         description={[item.description]}
                         height="450px"
                         imageSrc={`http://localhost:3001/uploads/${item.imageUrl}`} // dùng imageUrl
@@ -143,7 +146,7 @@ function Menus() {
                   <div className="col-3 mb-4" key={index}>
                     <Link to={`/detail/${item._id}`}>
                       <OverlayCard
-                        title={item.title}
+                        title={item.name}
                         description={[item.description]}
                         height="450px"
                         imageSrc={`http://localhost:3001/uploads/${item.imageUrl}`} // dùng imageUrl

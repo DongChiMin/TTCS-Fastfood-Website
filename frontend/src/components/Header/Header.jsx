@@ -12,7 +12,7 @@ function Header() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [headerVisible, setHeaderVisible] = useState(true);
 
-  // Start Phần xử lý cuộn chuột hiển thị header
+  // Start load giỏ hàng từ localStorage
   useEffect(() => {
     const loadCart = () => {
       const savedCart = JSON.parse(localStorage.getItem("cart")) || {
@@ -28,7 +28,9 @@ function Header() {
       window.removeEventListener("cartUpdated", loadCart);
     };
   }, []);
+  // End load giỏ hàng từ localStorage
 
+  // Start Phần xử lý cuộn chuột hiển thị header
   useEffect(() => {
     const controlHeader = () => {
       const currentScrollY = window.scrollY;
@@ -66,6 +68,8 @@ function Header() {
       item._id === id ? { ...item, quantity: item.quantity + 1 } : item
     );
     updateCart(updatedItems);
+    // Gửi sự kiện custom để các component khác biết
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const decreaseQuantity = (id) => {
@@ -75,6 +79,8 @@ function Header() {
         : item
     );
     updateCart(updatedItems);
+    // Gửi sự kiện custom để các component khác biết
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   const deleteItem = (id) => {
@@ -84,6 +90,8 @@ function Header() {
     if (confirmDelete) {
       const updatedItems = items.filter((item) => item._id !== id);
       updateCart(updatedItems);
+      // Gửi sự kiện custom để các component khác biết
+      window.dispatchEvent(new Event("cartUpdated"));
     }
   };
   // End phần xử lý giỏ hàng
@@ -92,7 +100,6 @@ function Header() {
 
   return (
     <>
-      {" "}
       {/* *****offcanvas sidebar start***** */}
       <div
         className="offcanvas offcanvas-start w-25 d-flex flex-column"
@@ -101,14 +108,17 @@ function Header() {
         aria-labelledby="offcanvasDemoLabel"
       >
         {/* Phần header */}
-        <div className="offcanvas-header">
-          <h1
-            className="offcanvas-title"
-            id="offcanvasDemoLabel"
-            style={{ fontSize: "40px" }}
-          >
-            Your cart
-          </h1>
+        <div className="offcanvas-header shadow" style={{ zIndex: "10" }}>
+          <div>
+            <h6 style={{ marginBottom: "0px" }}>Review your selected items</h6>
+            <h1
+              className="offcanvas-title"
+              id="offcanvasDemoLabel"
+              style={{ fontSize: "35px" }}
+            >
+              Your cart
+            </h1>
+          </div>
           <button
             type="button"
             className="btn-close text-reset"
@@ -136,11 +146,11 @@ function Header() {
 
         {/* Phần footer cố định */}
         <div
-          className="offcanvas-footer p-3 border-top"
-          style={{ flexShrink: 0 }}
+          className="offcanvas-footer p-3 border-top shadow"
+          style={{ flexShrink: 0, zIndex: 10 }}
         >
           <div className="d-flex justify-content-between align-items-center">
-            <p className="mb-0">Total:</p>
+            <p className="mb-0 fw-bold">Total:</p>
             <span className="fs-4 fw-bold">
               $
               {items
@@ -152,7 +162,7 @@ function Header() {
             <ButtonWhite
               buttontext={"Check Out"}
               className="w-100 mt-3 py-2"
-              style={{ height: "80px", fontSize: "25px" }}
+              style={{ height: "40px", fontSize: "15px" }}
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             />

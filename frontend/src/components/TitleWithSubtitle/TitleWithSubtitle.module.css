@@ -1,29 +1,29 @@
 .sectionHeading h6 {
   position: relative;
-  font-size: 25px;
+  font-size: 18px; /* Giảm từ 25px */
   color: #2a2a2a;
   font-weight: 500;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px; /* Giảm từ 2px */
   text-transform: uppercase;
-  padding-left: 40px;
+  padding-left: 30px; /* Giảm từ 40px */
 }
 
 .sectionHeading h6:before {
-  width: 30px;
+  width: 22px; /* Giảm từ 30px */
   height: 1px;
   content: "";
   position: absolute;
   left: 0;
-  top: 8px;
+  top: 6px; /* Điều chỉnh từ 8px */
   background-color: #2a2a2a;
 }
 
 .sectionHeading h2 {
-  margin-top: 20px;
-  margin-bottom: 25px;
-  font-size: 65px;
+  margin-top: 15px; /* Giảm từ 20px */
+  margin-bottom: 20px; /* Giảm từ 25px */
+  font-size: 48px; /* Giảm từ 65px */
   font-weight: 700;
-  letter-spacing: 12px;
-  line-height: 85px;
+  letter-spacing: 8px; /* Giảm từ 12px */
+  line-height: 60px; /* Giảm từ 85px */
   color: #2a2a2a;
 }

@@ -29,14 +29,14 @@ footer {
   padding: 0px 150px;
 }
 footer h5 {
-  font-size: 35px;
+  font-size: 25px;
 }
 footer p {
   color: white;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 footer li,
 footer a {
-  font-size: 20px;
+  font-size: 16px;
 }
