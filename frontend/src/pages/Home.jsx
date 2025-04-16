@@ -8,19 +8,31 @@ import BasicSlider from "../components/Slider/BasicSlider";
 import Reservation from "../components/Forms/Reservation";
 import ContactBox from "../components/Box/ContactBox";
 
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
+
 // media
-import img1 from "../assets/images/about-us-1.jpg";
+import imgAboutUs1 from "../assets/images/about-us-1.jpg";
+import imgAboutUs2 from "../assets/images/about-us-2.jpg";
+import imgAboutUs3 from "../assets/images/about-us-3.jpg";
 import video from "../assets/videos/introduction.mp4";
 import chef1 from "../assets/images/chefs/chef-1.jpg";
 import chef2 from "../assets/images/chefs/chef-2.jpg";
 import chef3 from "../assets/images/chefs/chef-3.jpg";
+import chef4 from "../assets/images/chefs/chef-4.jpg";
 import menuslider1 from "../assets/images/menus/menu-slider-1.jpg";
 import menuslider2 from "../assets/images/menus/menu-slider-2.jpg";
 import menuslider3 from "../assets/images/menus/menu-slider-3.jpg";
 import shopping1 from "../assets/images/shopping/title-wines.jpg";
 import shopping2 from "../assets/images/shopping/title-cakes.jpg";
+import imgBeginnerClass from "../assets/images/beginner-class.jpg";
+import imgAdvanceClass from "../assets/images/advance-class.jpg";
 
 function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0); // Cuộn lên đầu khi trang được mount
+  }, []);
+
   return (
     <div>
       <PageHeader
@@ -44,13 +56,13 @@ function Home() {
             </p>
           </div>
           <div className="col-sm-3 justify-content-center d-flex">
-            <ImageBox src={img1} height={"600px"} />
+            <ImageBox src={imgAboutUs1} height={"450px"} />
           </div>
           <div className="col-sm-3">
-            <ImageBox src={img1} height={"600px"} />
+            <ImageBox src={imgAboutUs2} height={"450px"} />
           </div>
           <div className="col-sm-3">
-            <ImageBox src={img1} height={"600px"} />
+            <ImageBox src={imgAboutUs3} height={"450px"} />
           </div>
         </div>
       </div>
@@ -59,37 +71,47 @@ function Home() {
       {/* ***** Our Chefs Start ***** */}
       <div className="section" style={{ backgroundColor: "#fffafa" }}>
         <div className="row">
-          <div className="col-sm-9 d-flex justify-content-center">
+          <div className="col-sm-9 ">
             <TitleWithSubtitle
               subTitle={"The culinary minds behind every unforgettable dish"}
               title={"MEET OUR MASTER CHEFS"}
             />
           </div>
           <div className="col-sm-3 d-flex align-items-center">
-            <ButtonWhite buttontext={"Discover all Chefs"} />
+            <Link to="/chefs">
+              <ButtonWhite buttontext={"Discover all Chefs"} />
+            </Link>
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-3">
             <OverlayCard
               title={"Randy Walker "}
               description={["Pastry Chef"]}
               imageSrc={chef1}
-              height={"600px"}
+              height={"450px"}
             />
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-3">
+            <OverlayCard
+              title={"Randy Walker "}
+              description={["Pastry Chef"]}
+              imageSrc={chef2}
+              height={"450px"}
+            />
+          </div>
+          <div className="col-sm-3">
             <OverlayCard
               title={"David Martin "}
               description={["Cookie Chef"]}
               imageSrc={chef3}
-              height={"600px"}
+              height={"450px"}
             />
           </div>
-          <div className="col-sm-4">
+          <div className="col-sm-3">
             <OverlayCard
               title={"Peter Perkson"}
               description={["Peter ancake Chef"]}
-              imageSrc={chef2}
-              height={"600px"}
+              imageSrc={chef4}
+              height={"450px"}
             />
           </div>
         </div>
@@ -107,7 +129,7 @@ function Home() {
                 { src: menuslider3, alt: "Menu Slider 3" },
               ]}
               width="100%"
-              height="600px"
+              height="450px"
             />
           </div>
           <div className="col-5">
@@ -122,7 +144,9 @@ function Home() {
               iusto, ad perspiciatis mollitia?
             </p>
 
-            <ButtonWhite buttontext={"Explore our Menu"} />
+            <Link to="/menus">
+              <ButtonWhite buttontext={"Explore our Menu"} />
+            </Link>
           </div>
         </div>
       </div>
@@ -147,10 +171,10 @@ function Home() {
             </div>
           </div>
           <div className="col-sm-3">
-            <OverlayCard imageSrc={shopping1} height={"700px"} />
+            <OverlayCard imageSrc={shopping1} height={"500px"} />
           </div>
           <div className="col-sm-3">
-            <OverlayCard imageSrc={shopping2} height={"700px"} />
+            <OverlayCard imageSrc={shopping2} height={"500px"} />
           </div>
         </div>
       </div>
@@ -174,10 +198,28 @@ function Home() {
             </p>
           </div>
           <div className="col-sm-6">
-            <OverlayCard imageSrc={img1} height={"400px"} />
+            <Link to="register-class">
+              <OverlayCard
+                imageSrc={imgBeginnerClass}
+                height={"400px"}
+                title="Be our Student"
+                description={[
+                  "Learn from talented chefs, explore new cuisines, and master the art of cooking.",
+                ]}
+              />
+            </Link>
           </div>
           <div className="col-sm-6">
-            <OverlayCard imageSrc={img1} height={"400px"} />
+            <Link to="/recuitment">
+              <OverlayCard
+                imageSrc={imgAdvanceClass}
+                height={"400px"}
+                title="Be our Chef"
+                description={[
+                  "Share your culinary passion, earn income, and inspire food lovers around the world.",
+                ]}
+              />
+            </Link>
           </div>
         </div>
       </div>

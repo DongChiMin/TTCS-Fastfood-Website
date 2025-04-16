@@ -7,15 +7,13 @@ function PageHeader({
   overlayColor = "rgba(0,0,0,0.5)",
   subTitle,
   title,
+  titleSize = "10rem",
   h2Title,
   buttonText,
-  height = "85vh", // chiều cao mặc định
+  height = "85vh",
 }) {
   return (
-    <section
-      className={styles.section}
-      style={{ height: height, position: "relative" }}
-    >
+    <section className={styles.section} style={{ height: height }}>
       {backgroundType === "video" ? (
         <video
           className={styles.backgroundMedia}
@@ -39,16 +37,18 @@ function PageHeader({
         style={{ backgroundColor: overlayColor }}
       ></div>
 
-      <div className={styles.content}>
-        <div className="container text-white h-100">
-          <div className="d-flex flex-column h-100 text-center align-items-center justify-content-center">
-            <h6 className={styles.subTitle}>{subTitle}</h6>
-            <h1 className={"display-3 " + styles.titleText}>{title}</h1>
-            <h2 className={styles.h2Title}>{h2Title}</h2>
-            {buttonText && (
-              <ButtonWhite2 buttontext={buttonText} className={styles.btn} />
-            )}
-          </div>
+      <div className={styles.contentContainer}>
+        <div className={styles.content}>
+          {subTitle && <h6 className={styles.subTitle}>{subTitle}</h6>}
+          {title && (
+            <h1 className={styles.titleText} style={{ fontSize: titleSize }}>
+              {title}
+            </h1>
+          )}
+          {h2Title && <h2 className={styles.h2Title}>{h2Title}</h2>}
+          {buttonText && (
+            <ButtonWhite2 buttontext={buttonText} className={styles.btn} />
+          )}
         </div>
       </div>
     </section>

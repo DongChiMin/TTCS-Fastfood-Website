@@ -1,7 +1,7 @@
 import React from "react";
 import ImageBox from "./Box/ImageBox"; // Giả sử bạn có một component ImageBox để hiển thị hình ảnh
 
-const CartItem = ({ item, onIncrease, onDecrease, onDelete }) => {
+const CartItem = ({ item, onIncrease, onDecrease, onDelete, extraElement }) => {
   return (
     <div className="card mb-3">
       <div className="card-body">
@@ -15,14 +15,13 @@ const CartItem = ({ item, onIncrease, onDecrease, onDelete }) => {
         </div>
         <h5
           className="card-title"
-          style={{ fontSize: "30px", marginTop: "10px" }}
+          style={{ fontSize: "22px", marginTop: "10px" }}
         >
-          {item.title}
+          {item.name}
         </h5>
         <div className="d-flex align-items-center">
           <p className="mb-0">Quantity: </p>
 
-          {/* Nút giảm số lượng */}
           <button
             style={{
               margin: "0 10px",
@@ -36,12 +35,10 @@ const CartItem = ({ item, onIncrease, onDecrease, onDelete }) => {
             -
           </button>
 
-          {/* Hiển thị số lượng */}
           <span className="mx-2" style={{ fontSize: "20px" }}>
             {item.quantity}
           </span>
 
-          {/* Nút tăng số lượng */}
           <button
             style={{
               margin: "0 10px",
@@ -56,9 +53,21 @@ const CartItem = ({ item, onIncrease, onDecrease, onDelete }) => {
           </button>
         </div>
 
-        <p className="card-text">Unit price: $ {item.price}</p>
+        <p className="card-text" style={{ marginBottom: "0.5rem" }}>
+          Unit price: $ {item.price}
+        </p>
 
-        <button onClick={() => onDelete(item._id)}>Delete</button>
+        <div className="d-flex align-items-center">
+          <button
+            style={{ marginTop: "0px" }}
+            onClick={() => onDelete(item._id)}
+          >
+            Delete
+          </button>
+          {extraElement && (
+            <div style={{ marginLeft: "10px" }}>{extraElement}</div>
+          )}
+        </div>
       </div>
     </div>
   );
