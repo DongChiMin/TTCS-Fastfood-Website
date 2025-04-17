@@ -192,3 +192,12 @@ button:hover {
     margin: 25px 15px 0;
   }
 }
+
+/* //MUI custom */
+.css-1usuzwp-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: #b8860b !important;
+}
+
+.css-1qltlow-MuiTabs-indicator {
+  background-color: #b8860b !important;
+}
