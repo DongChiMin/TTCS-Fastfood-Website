@@ -1,7 +1,45 @@
 import img1 from "../assets/images/menus/menu-slider-1.jpg";
 import PageHeader from "../components/PageHeader/PageHeader";
 import TitleWithSubtitle from "../components/TitleWithSubtitle/TitleWithSubtitle";
-import Table from "../components/Tables/Table";
+import Table from "../components/Table";
+
+const columns = [
+  { header: "Job vacancy", accessor: "job" },
+  { header: "Type", accessor: "type" },
+  { header: "Detail", accessor: "detail" },
+  { header: "Quantity", accessor: "quantity" },
+];
+
+const data = [
+  {
+    _id: "1",
+    job: "John",
+    type: "Doe",
+    detail: "john@example.com",
+    quantity: "demo",
+  },
+  {
+    _id: "2",
+    job: "Mary",
+    type: "Moe",
+    detail: "mary@example.com",
+    quantity: "demo",
+  },
+  {
+    _id: "3",
+    job: "July",
+    type: "Dooley",
+    detail: "july@example.com",
+    quantity: "demo",
+  },
+];
+
+const actions = [
+  {
+    label: "Aplly",
+    onClick: (item) => console.log("Apply", item),
+  },
+];
 
 function Recuitment() {
   return (
@@ -40,15 +78,7 @@ function Recuitment() {
       {/* Table Start */}
       <div className="section" style={{ padding: "0px 0px" }}>
         <div className="container">
-          <Table
-            columns={["Job vacancy", "Type", "Detail", "Quantity", "Action"]}
-            data={[
-              ["John", "Doe", "john@example.com", "demo", "demo"],
-              ["Mary", "Moe", "mary@example.com", "demo", "demo"],
-              ["July", "Dooley", "july@example.com", "demo", "demo"],
-            ]}
-            fontSize="20px"
-          />
+          <Table columns={columns} data={data} actions={actions} />
         </div>
       </div>
       {/* Table End */}

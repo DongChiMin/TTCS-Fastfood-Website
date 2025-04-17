@@ -92,7 +92,7 @@ const CustomForm = ({ fields, onSubmit, buttonText = "Place order" }) => {
                 <label
                   htmlFor={field.name}
                   className="form-label"
-                  style={{ fontSize: "18px", fontWeight: "bold" }}
+                  style={{ fontSize: "15px", fontWeight: "bold" }}
                 >
                   {field.label}
                   {field.required && <span style={{ color: "red" }}>*</span>}
@@ -106,7 +106,7 @@ const CustomForm = ({ fields, onSubmit, buttonText = "Place order" }) => {
                   onChange={(e) => handleChange(field.name, e.target.value)}
                   style={{
                     fontSize: "15px",
-                    padding: "12px",
+                    padding: "10px",
                   }}
                   required={field.required}
                 />
@@ -132,7 +132,7 @@ const CustomForm = ({ fields, onSubmit, buttonText = "Place order" }) => {
                   className="form-check-label"
                   htmlFor={field.name}
                   style={{
-                    fontSize: "18px",
+                    fontSize: "15px",
                   }}
                 >
                   {field.label}
@@ -150,7 +150,7 @@ const CustomForm = ({ fields, onSubmit, buttonText = "Place order" }) => {
                 <label
                   htmlFor={field.name}
                   className="form-label"
-                  style={{ fontSize: "18px", fontWeight: "bold" }}
+                  style={{ fontSize: "15px", fontWeight: "bold" }}
                 >
                   {field.label}
                   {field.required && <span style={{ color: "red" }}>*</span>}
@@ -162,7 +162,7 @@ const CustomForm = ({ fields, onSubmit, buttonText = "Place order" }) => {
                   onChange={(e) => handleChange(field.name, e.target.value)}
                   style={{
                     fontSize: "15px",
-                    padding: "12px",
+                    padding: "10px",
                   }}
                   required={field.required}
                 >
@@ -187,7 +187,6 @@ const CustomForm = ({ fields, onSubmit, buttonText = "Place order" }) => {
         type="submit"
         style={{
           fontSize: "15px",
-          padding: "10px 20px",
         }}
       >
         {buttonText}

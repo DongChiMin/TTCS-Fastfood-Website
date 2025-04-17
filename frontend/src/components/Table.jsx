@@ -24,17 +24,17 @@ import React from "react";
 
 //   <Table columns={columns} data={data} actions={actions} />
 
-const Table = ({ columns, data, actions }) => {
+const Table = ({ columns = [], data = [], actions = [] }) => {
   return (
     <table className="table table-striped table-bordered">
       <thead>
         <tr>
           {columns.map((col) => (
-            <th key={col.accessor} style={{ fontSize: "18px" }}>
+            <th key={col.accessor} style={{ fontSize: "15px" }}>
               {col.header}
             </th>
           ))}
-          {actions && <th>Actions</th>}
+          {actions.length > 0 && <th style={{ fontSize: "15px" }}>Actions</th>}
         </tr>
       </thead>
       <tbody>
@@ -48,7 +48,7 @@ const Table = ({ columns, data, actions }) => {
                     : row[col.accessor]}
                 </td>
               ))}
-              {actions && (
+              {actions.length > 0 && ( // Chỉ hiển thị cột hành động nếu có actions
                 <td>
                   {actions.map((action, idx) => (
                     <button
