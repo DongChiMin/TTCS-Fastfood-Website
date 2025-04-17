@@ -55,6 +55,7 @@ function Menus() {
   };
 
   const renderTabContent = (category) => {
+    //filter các item theo thể loại
     const filteredItems = menus.filter((item) => {
       switch (category) {
         case 0:
@@ -70,6 +71,7 @@ function Menus() {
       }
     });
 
+    //sắp xếp các item đã filter theo loại sort đã chọn
     const sortedItems = sortMenus(filteredItems);
 
     return (
