@@ -1,10 +1,12 @@
 const Menu = require("../models/menuModel");
-
+const { saveImageToUploads } = require("./uploadController");
+const path = require('path'); 
+const fs = require('fs');
 // Lấy danh sách menu
 exports.getMenus = async (req, res) => {
   try {
-    const menus = await Menu.find(); // Lấy tất cả các menu từ MongoDB
-    res.json(menus); // Trả về dữ liệu dưới dạng JSON
+    const menus = await Menu.find(); 
+    res.json(menus); 
   } catch (err) {
     res.status(500).json({ message: "Server Error" });
   }
@@ -12,16 +14,16 @@ exports.getMenus = async (req, res) => {
 
 // Lấy menu theo ID
 exports.getMenuById = async (req, res) => {
-  const { id } = req.params; // Lấy id từ params
+  const { id } = req.params; 
 
   try {
-    const menu = await Menu.findById(id); // Tìm menu theo id
+    const menu = await Menu.findById(id); 
 
     if (!menu) {
-      return res.status(404).json({ message: "Menu not found" }); // Nếu không tìm thấy menu
+      return res.status(404).json({ message: "Menu not found" });
     }
 
-    res.json(menu); // Trả về menu chi tiết
+    res.json(menu); 
   } catch (err) {
     res.status(500).json({ message: "Server Error" });
   }
@@ -29,16 +31,16 @@ exports.getMenuById = async (req, res) => {
 
 // Lấy menu theo Category
 exports.getMenuByCategory = async (req, res) => {
-  const { category } = req.params; // Lấy category từ params
+  const { category } = req.params; 
 
   try {
-    const menus = await Menu.find({ category }).limit(4); // Tìm menu theo category và giới hạn kết quả là 4 món ăn
+    const menus = await Menu.find({ category }).limit(4); 
 
     if (menus.length === 0) {
-      return res.status(404).json({ message: "Menu not found" }); // Nếu không tìm thấy menu
+      return res.status(404).json({ message: "Menu not found" });
     }
 
-    res.json(menus); // Trả về danh sách menu
+    res.json(menus); 
   } catch (err) {
     res.status(500).json({ message: "Server Error" });
   }
@@ -71,57 +73,70 @@ exports.deleteMenu = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const menu = await Menu.findByIdAndDelete(id);
+   
+    const menu = await Menu.findById(id);
 
     if (!menu) {
       return res.status(404).json({ message: "Menu not found" });
     }
 
+    // Xác định đường dẫn ảnh cần xóa
+    const imagePath = path.join(__dirname, `../${menu.imageUrl}`);
+    console.log("Image path:", imagePath); 
+
+    
+    if (fs.existsSync(imagePath)) {
+      fs.unlinkSync(imagePath); 
+      console.log("Image deleted successfully"); 
+    } else {
+      console.log("Image not found at path:", imagePath); 
+    }
+
+    
+    await Menu.findByIdAndDelete(id);
+
+   
     res.json({ message: "Menu deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: "Server Error" });
+    console.error("Error deleting menu:", err);
+    res.status(500).json({ message: "Server Error", error: err.message });
   }
 };
 
 // Tạo một món ăn mới
 exports.createMenu = async (req, res) => {
   try {
-    const { name, description, imageUrl, category, price } = req.body;
+    const { name, description, price, category, imageBuffer, fileName, mimeType } = req.body;
 
-    // Kiểm tra thiếu field nào
-    if (!name || !imageUrl || !price || !category) {
-      return res.status(400).json({
-        message: "Missing required fields: name, imageUrl, price, or category",
-      });
+    
+    if (!name || !description || !price || !category || !imageBuffer || !fileName) {
+      return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // Kiểm tra category hợp lệ
-    const validCategories = ['mainCourse', 'appertizers', 'drink', 'dessert']; // Đây là ví dụ các category hợp lệ
-    if (!validCategories.includes(category)) {
-      return res.status(400).json({
-        message: "Invalid category. Please choose a valid category.",
-      });
+    // Lưu ảnh và lấy URL
+    const imageUrl = saveImageToUploads(imageBuffer, fileName, mimeType, category);
+    
+    if (!imageUrl) {
+      return res.status(500).json({ message: "Error saving image" });
     }
 
-    const newMenu = new Menu({
+    
+    const menu = new Menu({
       name,
-      description: description || "",
-      imageUrl,
+      description,
+      price: parseFloat(price),
       category,
-      price: parseFloat(price), // ép về number
+      imageUrl, 
     });
 
-    const savedMenu = await newMenu.save();
+   
+    await menu.save();
 
-    res.status(201).json({
-      message: "Menu created successfully",
-      menu: savedMenu,
-    });
+    
+    res.status(201).json({ message: "Menu created successfully", menu });
+
   } catch (err) {
-    console.error("❌ Error saving menu:", err);
-    res.status(500).json({
-      message: "Server Error",
-      error: err.message,
-    });
+    console.error("Error creating menu:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
   }
 };

@@ -1,17 +1,16 @@
 import React from "react";
-import ImageBox from "./Box/ImageBox"; // Giả sử bạn có một component ImageBox để hiển thị hình ảnh
+
 
 const CartItem = ({ item, onIncrease, onDecrease, onDelete, extraElement }) => {
   return (
     <div className="card mb-3">
       <div className="card-body">
         <div>
-          <ImageBox
-            height="200px"
-            width="100%"
-            src={`http://localhost:3001/uploads/${item.imageUrl}`}
-            alt="menu"
-          />
+        <img
+          src={`http://localhost:3001${item.imageUrl}`}
+          alt={item.name}
+          style={{ width: "100px", border: "1px solid #ccc" }}
+        />
         </div>
         <h5
           className="card-title"

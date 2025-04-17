@@ -48,6 +48,7 @@ exports.addToCart = async (req, res) => {
     const { cartId, items } = req.body;
 
     const cart = await Cart.findById(cartId);
+    console.log("📦 Items received:", items);
     if (!cart) return res.status(404).json({ message: "Cart not found" });
 
     // Lặp qua từng item gửi lên

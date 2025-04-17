@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const categories = ["drink", "mainCourse", "dessert", "appetizer"];
+
 function AdminMenus() {
   const [menus, setMenus] = useState([]);
   const [editMenu, setEditMenu] = useState(null);
@@ -10,6 +12,9 @@ function AdminMenus() {
     imageUrl: "",
     category: "",
     price: "",
+    imageBuffer: null,
+    fileName: "",
+    previewUrl: "", 
   });
 
   useEffect(() => {
@@ -39,13 +44,17 @@ function AdminMenus() {
 
   const handleEdit = (menu) => {
     setEditMenu(menu);
+    setNewMenu({
+      ...menu,
+      previewUrl: menu.imageUrl || "",
+    });
   };
 
   const handleSave = async () => {
     try {
       await axios.put(`http://localhost:3001/api/menus/${editMenu._id}`, {
         ...editMenu,
-        price: parseFloat(editMenu.price), // ✅ ép sang number
+        price: parseFloat(editMenu.price),
       });
       alert("Menu updated successfully");
       setEditMenu(null);
@@ -62,64 +71,67 @@ function AdminMenus() {
   const handleNewMenuChange = (e) => {
     setNewMenu({ ...newMenu, [e.target.name]: e.target.value });
   };
-  const handleImageUpload = async (e) => {
+
+  const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-  
+
     const formData = new FormData();
     formData.append("image", file);
-  
-    try {
-      const response = await axios.post("http://localhost:3001/api/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-  
-      // Cập nhật đường dẫn ảnh mới vào newMenu
-      setNewMenu((prev) => ({
-        ...prev,
-        imageUrl: response.data.imageUrl, // imageUrl sẽ chứa đường dẫn tới ảnh đã upload
-      }));
-  
-      // Hiển thị ảnh đã upload ngay lập tức
-      alert("Image uploaded successfully!");
-    } catch (err) {
-      console.error("Error uploading image:", err.response?.data || err);
-      alert("Error uploading image.");
-    }
-  };
-  
+    formData.append("category", newMenu.category);
 
-  const handleCreate = async () => {
-    try {
-      console.log("Creating menu with data:", newMenu); // 👈 Thêm dòng này
-  
-      await axios.post("http://localhost:3001/api/menus", {
-        ...newMenu,
-        price: parseFloat(newMenu.price),
+    axios.post("http://localhost:3001/api/upload", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((response) => {
+        const { fileName, category, imageBuffer } = response.data;
+        setNewMenu({
+          ...newMenu,
+          fileName,
+          category,
+          imageBuffer,
+          previewUrl: URL.createObjectURL(file), // Hiển thị ảnh tạm thời
+        });
+      })
+      .catch((err) => {
+        console.error("Error uploading image:", err);
       });
-  
-      alert("Menu created successfully");
-      setNewMenu({
-        name: "",
-        description: "",
-        imageUrl: "",
-        category: "",
-        price: "",
-      });
-      console.log("🧾 Data being sent:", newMenu);
-      fetchMenus();
-    } catch (err) {
-      console.error("Error creating menu:", err.response?.data || err);
-    }
   };
-  
+
+  const handleCreateMenu = () => {
+    const { name, description, price, category, fileName, imageBuffer } = newMenu;
+
+    axios.post("http://localhost:3001/api/menus", {
+      name,
+      description,
+      price,
+      category,
+      fileName,
+      imageBuffer,
+    })
+      .then((res) => {
+        alert("Menu created successfully");
+        setNewMenu({
+          name: "",
+          description: "",
+          imageUrl: "",
+          category: "",
+          price: "",
+          imageBuffer: null,
+          fileName: "",
+          previewUrl: "",
+        });
+        fetchMenus();
+      })
+      .catch((err) => {
+        console.error("Error creating menu:", err);
+      });
+  };
+
   return (
     <div className="container mt-5">
       <h2>Admin: Manage Menus</h2>
 
-      {/* Form to Add New Menu */}
       <div>
         <h3>Add New Menu</h3>
         <form>
@@ -150,23 +162,29 @@ function AdminMenus() {
               onChange={handleImageUpload}
               className="form-control"
             />
-          {newMenu.imageUrl && (
-            <img
-            src={`http://localhost:3001${newMenu.imageUrl}`}
-            alt="Preview"
-            style={{ width: "100px", marginTop: "10px", border: "1px solid #ccc" }}
-          />
-          )}
-        </div>
+            {newMenu.previewUrl && (
+              <img
+                src={newMenu.previewUrl}
+                alt="Preview"
+                style={{ width: "100px", marginTop: "10px", border: "1px solid #ccc" }}
+              />
+            )}
+          </div>
           <div className="mb-3">
             <label>Category</label>
-            <input
-              type="text"
+            <select
               name="category"
               value={newMenu.category}
               onChange={handleNewMenuChange}
               className="form-control"
-            />
+            >
+              <option value="">-- Select Category --</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="mb-3">
             <label>Price</label>
@@ -180,7 +198,7 @@ function AdminMenus() {
           </div>
           <button
             type="button"
-            onClick={handleCreate}
+            onClick={handleCreateMenu}
             className="btn btn-primary"
           >
             Add Menu
@@ -188,7 +206,6 @@ function AdminMenus() {
         </form>
       </div>
 
-      {/* Existing Menus */}
       {editMenu ? (
         <div>
           <h3>Edit Menu</h3>
@@ -221,16 +238,29 @@ function AdminMenus() {
                 onChange={handleChange}
                 className="form-control"
               />
+              {editMenu.imageUrl && (
+              <img
+                src={`http://localhost:3001${editMenu.imageUrl}`}
+                alt="Preview"
+                style={{ width: "100px", marginTop: "10px", border: "1px solid #ccc" }}
+              />
+            )}
             </div>
             <div className="mb-3">
               <label>Category</label>
-              <input
-                type="text"
+              <select
                 name="category"
                 value={editMenu.category}
                 onChange={handleChange}
                 className="form-control"
-              />
+              >
+                <option value="">-- Select Category --</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="mb-3">
               <label>Price</label>
@@ -276,9 +306,7 @@ function AdminMenus() {
                   <td>{menu.name}</td>
                   <td>{menu.description}</td>
                   <td>{menu.category}</td>
-                  <td>
-                    ${menu.price ? Number(menu.price).toFixed(2) : "0.00"}
-                  </td>
+                  <td>${menu.price ? Number(menu.price).toFixed(2) : "0.00"}</td>
                   <td>
                     <button
                       className="btn btn-primary me-2"
