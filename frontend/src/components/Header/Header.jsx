@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import logo from "../../assets/images/logo-black.png";
 import styles from "./Header.module.css";
 import ButtonWhite from "../Buttons/ButtonWhite";
@@ -95,6 +95,8 @@ function Header() {
     }
   };
   // End phần xử lý giỏ hàng
+  // login btn
+  const navigate = useNavigate()
 
   return (
     <>
@@ -256,7 +258,7 @@ function Header() {
               <div>
                 <ButtonWhite
                   buttontext="Login"
-                  onClick={() => alert("Button Clicked!")}
+                  onClick={() => navigate('/login')}
                 />
               </div>
             </div>
