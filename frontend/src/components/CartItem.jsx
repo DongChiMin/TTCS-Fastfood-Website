@@ -1,16 +1,15 @@
 import React from "react";
 
-
 const CartItem = ({ item, onIncrease, onDecrease, onDelete, extraElement }) => {
   return (
     <div className="card mb-3">
       <div className="card-body">
         <div>
-        <img
-          src={`http://localhost:3001${item.imageUrl}`}
-          alt={item.name}
-          style={{ width: "100px", border: "1px solid #ccc" }}
-        />
+          <img
+            src={`http://localhost:3001${item.imageUrl}`}
+            alt={item.name}
+            style={{ width: "100%", border: "1px solid #ccc" }}
+          />
         </div>
         <h5
           className="card-title"
