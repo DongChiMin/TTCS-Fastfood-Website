@@ -28,12 +28,20 @@ function AdminLayout({ children }) {
               Manage Menus
             </Link>
           </li>
-          <li>
+          <li style={{ marginBottom: "10px" }}>
             <Link
               to="/admin/chefs"
               style={{ color: "#fff", textDecoration: "none" }}
             >
               Manage Chefs
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/admin/reservations"
+              style={{ color: "#fff", textDecoration: "none" }}
+            >
+              Manage reservations
             </Link>
           </li>
         </ul>
