@@ -120,6 +120,8 @@ function AdminReservation() {
                         <td>{order.people}</td>
                         <td>{order.status}</td>
                         <td>
+                          {/* Sau khi bấm confirm thì nút này chuyển thành cancel.  */}
+                          {/* Chưa làm tính năng: Hiện bảng xác nhận khi bấm nút window.notify... */}
                           <button
                             style={{
                               backgroundColor: "darkgreen",
