@@ -13,38 +13,55 @@ import styles from "./Table.module.css";
 /> */
 }
 
-function Table({ columns = [], data = [], fontSize = "20px", onAction }) {
+const Table = ({ columns = [], data = [], actions = [] }) => {
   return (
-    <div>
-      <table className={styles.table} style={{ fontSize }}>
-        <thead className={styles.tableDark}>
-          <tr>
-            {columns.map((col, index) => (
-              <th key={index}>{col}</th>
-            ))}
-            <th>Actions</th> {/* 👈 Cột thêm nút bấm */}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((row, i) => (
-            <tr key={i}>
-              {row.map((cell, j) => (
-                <td key={j}>{cell}</td>
-              ))}
-              <td>
-                <button
-                  className={styles.actionButton}
-                  onClick={() => onAction && onAction(i)}
-                >
-                  Xem
-                </button>
-              </td>
-            </tr>
+    <table className="table table-striped table-bordered">
+      <thead>
+        <tr>
+          {columns.map((col) => (
+            <th key={col.accessor} style={{ fontSize: "15px" }}>
+              {col.header}
+            </th>
           ))}
-        </tbody>
-      </table>
-    </div>
+          {actions.length > 0 && <th style={{ fontSize: "15px" }}>Actions</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {data.length > 0 ? (
+          data.map((row, rowIndex) => (
+            <tr key={row._id || rowIndex}>
+              {columns.map((col) => (
+                <td key={col.accessor} style={{ fontSize: "15px" }}>
+                  {typeof col.cell === "function"
+                    ? col.cell(row[col.accessor], row)
+                    : row[col.accessor]}
+                </td>
+              ))}
+              {actions.length > 0 && ( // Chỉ hiển thị cột hành động nếu có actions
+                <td>
+                  {actions.map((action, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => action.onClick(row)}
+                      style={{ marginRight: "5px" }}
+                    >
+                      {action.label}
+                    </button>
+                  ))}
+                </td>
+              )}
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan={columns.length + (actions ? 1 : 0)}>
+              No data available
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   );
-}
+};
 
 export default Table;
